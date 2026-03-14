@@ -168,11 +168,11 @@ from products
 where price > 500;
 
 -- 4. Write a query to find the average price of all products from the `Products` table.
-select AVG(price)
+select avg(price)
 from products;
 
 -- 5. Write a query to find the total sales amount from the `Sales` table.
-select SUM(total_amount)
+select sum(total_amount)
 from sales;
 
 -- 6. Write a query to select distinct membership statuses from the `Customers` table.
@@ -189,7 +189,7 @@ from products
 where category = 'Electronics';
 
 -- 9. Write a query to find the highest price from the `Products` table.
-select product_name, MAX(price) as highest_price
+select product_name, max(price) as highest_price
 from products
 group by product_name;
 
@@ -199,12 +199,12 @@ from sales
 group by product_id;
 
 -- 11. Write a query to find the total quantity sold for each product from the `Sales` table.
-select product_id, SUM(quantity_sold) as total_quantity
+select product_id, sum(quantity_sold) as total_quantity
 from sales
 group by product_id;
 
 -- 12. Write a query to find the lowest price of products in the `Products` table.
-select product_name, MIN(price)
+select product_name, min(price)
 from products
 group by product_name;
 
@@ -246,7 +246,7 @@ and c.customer_id < m.customer_id;
 
 -- 18. Write a query to join the `Sales` and `Products` tables, and calculate the total number of sales for each product.
 select p.product_name,
-sum(p.stock_quantity) AS total_quantity_sold
+sum(p.stock_quantity) as quantity_sold
 from Sales s
 inner join Products p
 ON s.product_id = p.product_id
@@ -507,7 +507,7 @@ having sum(s.quantity_sold * s.total_amount) = (select max(total_spent)
 from(select sum(quantity_sold * total_amount) as total_spent
 from sales
 where sale_date between '2023-01-01' and '2023-12-31'
-group by customer_id) as max_sales);
+group by customer_id));
 
 -- 50. Write a query to select the products that have been sold more than 100 times and have a price greater than 200.
 select p.product_id, p.product_name, p.price,
@@ -518,6 +518,8 @@ on p.product_id = s.product_id
 where p.price > 200
 group by p.product_id, p.product_name, p.price
 having sum(s.quantity_sold) > 100;
+
+
 
 
 
